@@ -1,6 +1,7 @@
 package it.unibo.generics.graph;
 
 import it.unibo.generics.graph.api.Graph;
+import it.unibo.generics.graph.impl.ImplGraph;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -22,8 +23,36 @@ public final class UseGraph {
         /*
          * Test your graph implementation(s) by calling testGraph
          */
-        testGraph(null);
+        Graph<String> g = new ImplGraph<>();
+        testGraph(g);
+        //test(g);
     }
+
+    
+    private static void test(final Graph<String> graph) {
+        graph.addNode("a");
+        graph.addNode("b");
+        graph.addNode("c");
+        graph.addNode("d");
+        graph.addNode("e");
+        graph.addNode("f");
+        graph.addNode("g");
+        graph.addEdge("a", "d");
+        graph.addEdge("b", "c");
+        graph.addEdge("c", "e");
+        graph.addEdge("d", "f");
+        graph.addEdge("e", "d");
+        graph.addEdge("e", "d");
+        graph.addEdge("f", "b");
+        graph.addEdge("g", "a");
+        graph.addEdge("g", "e");
+        
+
+        System.out.println(graph.getPath("a","g"));
+        
+    }
+    
+
 
     private static void testGraph(final Graph<String> graph) {
         graph.addNode("a");
@@ -48,6 +77,7 @@ public final class UseGraph {
         /*
          * Either the path b,c,a or b,c,d,e,a
          */
+
         assertIsAnyOf(
             graph.getPath("b", "a"),
             Arrays.asList(splitOnWhiteSpace("b c a")),

@@ -9,6 +9,8 @@ import java.util.Set;
  */
 public interface Graph<N> {
 
+    
+
     /**
      * Adds a node: nothing happens if node is null or already there.
      * 
