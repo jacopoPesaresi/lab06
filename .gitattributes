@@ -7,4 +7,5 @@
 *.[mM][dD] text eol=crlf
 *.[kK][tT][sS] text eol=crlf
 *.[pP][rR][oO][pP][eE][rR][tT][iI][eE][sS] text eol=crlf
-*.[gG][rR][aA][dD][lL][eE][wW] text eol=crlf
+*/gradlew text eol=crlf
+#*.[gG][rR][aA][dD][lL][eE][wW] text eol=crlf
