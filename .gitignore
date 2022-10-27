@@ -1,5 +1,5 @@
 #ignore all .class file
 *.class
-#TRY to ignore all bin and build files
+#ignore all bin and build files
 bin/
 build/
