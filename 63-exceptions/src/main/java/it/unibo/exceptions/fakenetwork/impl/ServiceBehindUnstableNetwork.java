@@ -28,11 +28,11 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
      * @param randomSeed random generator seed for reproducibility
      * @throws IllegalAccessException
      */
-    public ServiceBehindUnstableNetwork(final double failProbability, final int randomSeed) {
+    public ServiceBehindUnstableNetwork(final double failProbability, final int randomSeed) throws IllegalArgumentException {
         /*
          * The probability should be in [0, 1[!
          */
-        if (failProbability>=0 && failProbability<1) {
+        if (failProbability<0 || failProbability>=1) {
             final String errString = "The failProbability value isn't included between 0 and 1. Actual value = " + failProbability;
             throw new IllegalArgumentException(errString);
         }
@@ -65,7 +65,7 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
             /*System.out.println(message);*/
 
             commandQueue.clear();
-            throw new NumberFormatException(message);
+            throw new NumberFormatException(message + exceptionWhenParsedAsNumber);
             
             /*
              * This method, in this point, should throw an IllegalStateException.

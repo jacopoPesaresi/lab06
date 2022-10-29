@@ -51,10 +51,10 @@ public final class UseArithmeticService {
         while(gate){
             try {
                 server.sendData(message);
-                gate=false;
+                gate = false;
             } catch (IOException e) {
-                e.printStackTrace();
-                gate=true;
+                //e.printStackTrace();
+                gate = true;
             }
         }
         
@@ -67,13 +67,13 @@ public final class UseArithmeticService {
          */
         boolean gate = true;
         String tmp = "";
-        while(gate){
+        while (gate) {
             try {
                 tmp = server.receiveResponse();
-                gate=false;
+                gate = false;
             } catch (IOException e) {
-                e.printStackTrace();
-                gate=false;
+                //e.printStackTrace();
+                gate = true;
             }
         }
         return tmp;
