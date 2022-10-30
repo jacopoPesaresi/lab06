@@ -15,7 +15,7 @@ public class ImplConnectionTree<N> implements ConnectionTree<N>{
     private N root;
     private Graph<N> byThisGraph;
 
-    public ImplConnectionTree(Graph<N> start,N root){
+    public ImplConnectionTree(final Graph<N> start, final N root){
         this.root = root;
         this.byThisGraph = start;
 
@@ -34,13 +34,13 @@ public class ImplConnectionTree<N> implements ConnectionTree<N>{
     }
 
     @Override
-    public void setPath(N whichNode, List<N> path) {
+    public void setPath(final N whichNode, final List<N> path) {
         this.coverTree.put(whichNode, new LinkedList<>(path));
     }
 
     @Override
-    public List<N> getPath(N node) {
-        return this.coverTree.get(node);
+    public List<N> getPath(final N node) {
+        return new LinkedList<>(this.coverTree.get(node));
         
     }
 

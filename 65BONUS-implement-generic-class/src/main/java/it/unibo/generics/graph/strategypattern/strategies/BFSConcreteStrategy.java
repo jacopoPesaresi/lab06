@@ -26,7 +26,7 @@ public class BFSConcreteStrategy<N> implements SearchStrategy<N>{
      * if the "start" node isn't a node of the graph
      */
     @Override
-    public ConnectionTree<N> search(Graph<N> graph, N start) throws IllegalArgumentException{
+    public ConnectionTree<N> search(final Graph<N> graph, final N start) throws IllegalArgumentException{
         if(graph.nodeSet().contains(start)){
             ConnectionTree<N> BFSTree = new ImplConnectionTree<N>(graph,start);
             Map<N,Color> colors = new HashMap<>();

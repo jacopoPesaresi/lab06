@@ -34,24 +34,29 @@ public class DFSConcreteStrategy<N> implements SearchStrategy<N>{
 
     @Override
     public ConnectionTree<N> search(final Graph<N> graph, final N start) throws IllegalArgumentException{
-        ConnectionTree<N> DFSTree = new ImplConnectionTree<N>(graph, start);
-        Map<N,Color> colors = new HashMap<>();
+        if (graph.nodeSet().contains(start)){
+            ConnectionTree<N> DFSTree = new ImplConnectionTree<N>(graph, start);
+            Map<N,Color> colors = new HashMap<>();
 
-        for (N node : graph.nodeSet()) {
-            colors.put(node,Color.WHITE);
-        }
-
-        DFSTree.setPath(start,new LinkedList<>(List.of(start)));
-        DFSVisit(DFSTree, graph, colors, start);
-
-        for (N node : graph.nodeSet()) {
-            if(colors.get(node)==Color.WHITE){
-                DFSTree.setPath(node,new LinkedList<>(List.of(node)));
-                this.DFSVisit(DFSTree, graph, colors,node);
+            for (N node : graph.nodeSet()) {
+                colors.put(node,Color.WHITE);
             }
-        }
 
-        return DFSTree;
+            DFSTree.setPath(start,new LinkedList<>(List.of(start)));
+            DFSVisit(DFSTree, graph, colors, start);
+
+            for (N node : graph.nodeSet()) {
+                if(colors.get(node)==Color.WHITE){
+                    DFSTree.setPath(node,new LinkedList<>(List.of(node)));
+                    this.DFSVisit(DFSTree, graph, colors,node);
+                }
+            }
+
+            return DFSTree;
+            
+        } else { 
+            throw new IllegalArgumentException();
+        }
     }
 
 
