@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 import java.util.LinkedList;
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.Queue;
 
 import it.unibo.generics.graph.api.Graph;
+import it.unibo.generics.graph.strategypattern.Color;
 
-
-enum Color {WHITE, GREY, BLACK};
 
 
 public class ImplGraph<N> implements Graph<N>{
@@ -28,16 +27,16 @@ public class ImplGraph<N> implements Graph<N>{
 
     @Override
     public void addNode(final N node) {
-        //if(node!=null && !myGraph.containsKey(node)){ @corrected
-            myGraph.putIfAbsent(node,new HashSet<N>());
-        //} @corrected
+        if(node!=null && !myGraph.containsKey(node)){
+            myGraph.put(node,new HashSet<N>());
+        }
     }
 
     @Override
     public void addEdge(final N source,final N target) {
-        if(source!=null && target!=null && myGraph.containsKey(source)){ //weak control
+        if(source!=null && target!=null && myGraph.containsKey(source)){
             myGraph.get(source).add(target);
-        } //next time do this check in a private function, mayby with also exceptions
+        }
     }
 
     @Override
@@ -52,13 +51,9 @@ public class ImplGraph<N> implements Graph<N>{
 
     @Override
     public List<N> getPath(final N source, final N target) {
-        if(source!=null && target!=null && myGraph.containsKey(source) && myGraph.containsKey(target)){ //weak control
-            return this.BFS(source).get(target);
-        } else { //@added
-            return Collections.emptyList(); //@added
-        } //@added
-        
+        return this.BFS(source).get(target);
     }
+
 
     /**
      * Exploration of a single component about a graph
@@ -73,7 +68,7 @@ public class ImplGraph<N> implements Graph<N>{
         Map<N,Color> colors = new HashMap<>();
         Queue<N> Q = new LinkedList<>();
 
-        for (N node : this.nodeSet()) {
+        for (N node : this.myGraph.keySet()) {
             BFSTree.put(node,new LinkedList<>());
             colors.put(node,Color.WHITE);
         }
@@ -99,5 +94,6 @@ public class ImplGraph<N> implements Graph<N>{
         }
         return BFSTree;
     }
+
 
 }

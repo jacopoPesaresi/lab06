@@ -21,3 +21,13 @@ L'ultima funzione uso direttamente una lista (anche se servirsi di un set prima 
 omesso qualche this e aggiunto un if di troppo (ridondante quantomeno) in SocialNetworkUserImpl.getFollowedUsers
 
 CASA 65
+Usata una HashMap invece di una LinkedHashMap (ma sempre Map<N, Set<N>> l'oggetto è)
+invece di "putIfAbsent" ho usato solo "put" in "addNode" (mettendolo però in opportuno controllo)
+implementazione dei controlli "più DRY" nel metodo addEdge, con conseguente assenza di eccezzione
+in "nodeSet" ho fatto direttamente il return di "this.myGraph.keySet()" invece di fare una "copia di sicurezza" [il mio myGraph è il vostro edges]
+(anche se a questo punto non ho capito perchè nel metodo dopo manca questa "copia di sicurezza" avendo fatto "this.myGraph.get(node)")
+getPath mal gestito, così facendo se non esiste il percorso ritornerei null
+Lascio che la BFS esplori tutto il grafo
+65BONUS
+Vedo molte differenze... forse sono rimasto troppo fedele all'UML trovato nei siti di riferimento
+Avevo pensato di comporre "la strategia di ricerca" all'interno del grafo (e della sua classe, e quindi con aggiunta del relativo campo ecc), ma volevo lasciare fedele l'interfaccia fornita e ho pensato di lasciare distaccati i due oggetti (il grafo è una HashMap<N, Set<N>>, gli alberi di copertura creati dalla BFS e dalla DFS sono delle HashMap<N, List<N>>)
