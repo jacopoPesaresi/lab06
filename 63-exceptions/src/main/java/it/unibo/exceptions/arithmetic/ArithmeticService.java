@@ -86,17 +86,14 @@ public final class ArithmeticService {
         String finalResult = null;
 
         try{
-            finalResult = commandQueue.get(0);
+            finalResult = (String)commandQueue.get(0);
             final var possibleException = nullIfNumberOrException(finalResult);
             if(possibleException!=null){
                     throw new IllegalStateException(finalResult);
             }
         } catch (IllegalStateException e){
-            //throw new IllegalStateException("Invalid result of operation: " + finalResult);
+            
         } finally {
-        //if (possibleException != null) {
-        //    throw new 
-        //}
             commandQueue.clear();
         }
         return finalResult;

@@ -65,7 +65,7 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
             /*System.out.println(message);*/
 
             commandQueue.clear();
-            //throw new NumberFormatException(message, exceptionWhenParsedAsNumber);
+            //throw new NumberFormatException(message + exceptionWhenParsedAsNumber);
             throw new IllegalArgumentException(message, exceptionWhenParsedAsNumber);
             
             /*
@@ -90,8 +90,9 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
 
     private void accessTheNework(final String message) throws IOException {
         if (randomGenerator.nextDouble() < failProbability) {
-            throw new NetworkException("Generic I/O error");
+            //throw new NetworkException("Generic I/O error");
             //messaggio adeguato?
+            throw message == null ? new NetworkException() : new NetworkException(message);
         }
     }
 
