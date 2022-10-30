@@ -25,10 +25,14 @@ public final class UseGraph {
          */
         Graph<String> g = new ImplGraph<>();
         testGraph(g);
-        //test(g);
+        test(g);
+        
     }
 
-    
+    /**
+     * My little tester, only for funny
+     * @param graph
+     */
     private static void test(final Graph<String> graph) {
         graph.addNode("a");
         graph.addNode("b");
@@ -41,7 +45,6 @@ public final class UseGraph {
         graph.addEdge("b", "c");
         graph.addEdge("c", "e");
         graph.addEdge("d", "f");
-        graph.addEdge("e", "d");
         graph.addEdge("e", "d");
         graph.addEdge("f", "b");
         graph.addEdge("g", "a");
@@ -84,6 +87,8 @@ public final class UseGraph {
             Arrays.asList(splitOnWhiteSpace("b c d e a"))
         );
     }
+
+
 
     private static void assertIsAnyOf(final Object actual, final Object... valid) {
         for (final var target: Objects.requireNonNull(valid)) {

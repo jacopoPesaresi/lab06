@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.List;
 
 import java.util.Queue;
-import java.util.Scanner;
 
 import it.unibo.generics.graph.api.Graph;
 
@@ -22,8 +21,6 @@ enum Color {WHITE, GREY, BLACK};
 public class ImplGraph<N> implements Graph<N>{
 
     private Map<N,Set<N>> myGraph;
-
-    
 
     public ImplGraph() {
         this.myGraph = new HashMap<N,Set<N>>();
@@ -55,72 +52,8 @@ public class ImplGraph<N> implements Graph<N>{
 
     @Override
     public List<N> getPath(final N source, final N target) {
-        Scanner s = new Scanner(System.in);
-        boolean gate = true;
-        
-        while(gate){
-            try {
-                System.out.println("Preferisci BFS o DFS? ");
-                String in = s.nextLine();
-                gate = false;
-                
-                if(in.equals("BFS")){
-                    s.close();
-                    return this.BFS(source).get(target);
-                } else if (in.equals("DFS")) {
-                    s.close();
-                    return this.DFSForPath(source).get(target);
-                } else throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Scrivere BFS o DFS");
-                gate=true;
-            }
-        }
         return this.BFS(source).get(target);
     }
-
-
-    
-
-    /*
-    public void printExplorationTree (N source) {
-        Scanner s = new Scanner(System.in);
-        boolean gate = true;
-        Map <N,List<N>> myExpTre=null;
-
-        if(this.getGraph().containsKey(source)){
-            System.out.println("Nodo di partenza: " + source.toString());
-            
-        while(gate){
-            try {
-                System.out.println("Preferisci osservare l'esplorazione BFS o DFS? ");
-                String in = s.nextLine();
-                gate = false;
-                
-                if(in.equals("BFS")){
-                    s.close();
-                    myExpTre = this.BFS(source);
-                } else if (in.equals("DFS")) {
-                    s.close();
-                    myExpTre = this.DFSForPath(source);
-                } else throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Scrivere BFS o DFS");
-                gate=true;
-            }
-        }
-
-        if(myExpTre!=null){
-            for (N node : myExpTre.keySet()) {
-                System.out.print("Nodo: " + node.toString());
-                System.out.println("; predecessori: " + myExpTre.get(node).toString());
-            }
-        }
-
-        }
-        
-    }
-    */
 
     /**
      * Exploration of a single component about a graph
@@ -135,7 +68,7 @@ public class ImplGraph<N> implements Graph<N>{
         Map<N,Color> colors = new HashMap<>();
         Queue<N> Q = new LinkedList<>();
 
-        for (N node : this.myGraph.keySet()) {
+        for (N node : this.nodeSet()) {
             BFSTree.put(node,new LinkedList<>());
             colors.put(node,Color.WHITE);
         }
@@ -148,7 +81,7 @@ public class ImplGraph<N> implements Graph<N>{
         LinkedList<N> tmp;
         while (!Q.isEmpty()) {
             nodeConsidered = Q.poll();
-            for (N nearNode : this.getGraph().get(nodeConsidered)) {
+            for (N nearNode : this.linkedNodes(nodeConsidered)) {
                 if(colors.get(nearNode) == Color.WHITE){
                     colors.put(nearNode, Color.GREY);
                     tmp = new LinkedList<>(BFSTree.get(nodeConsidered));
@@ -161,66 +94,5 @@ public class ImplGraph<N> implements Graph<N>{
         }
         return BFSTree;
     }
-
-     /**
-     * Exploration of all graph
-     * using the DFS strategy
-     * 
-     * For the exploration of all graph, this function use
-     * an another function, the "DFSVisit".
-     * 
-     * @param start
-     *      because we put a priority in this case in the research
-     *      (we need to find the path between two nodes)
-     *      So if the graph has more than two component, the component
-     *      that there isn't the "start element" will be explored
-     *      arbitary by the code
-     * @return 
-     *      the relative DFS-Tree
-     */
-    private Map<N,List<N>> DFSForPath(final N start) {
-        Map<N,List<N>> DFSTree = new HashMap<>();
-        Map<N,Color> colors = new HashMap<>();
-
-        for (N node : this.getGraph().keySet()) {
-            DFSTree.put(node, null);
-            colors.put(node,Color.WHITE);
-        }
-
-        DFSTree.put(start,new LinkedList<>(List.of(start)));
-        DFSVisit(DFSTree, colors, start);
-
-        for (N node : DFSTree.keySet()) {
-            if(colors.get(node)==Color.WHITE){
-                DFSTree.put(node,new LinkedList<>(List.of(node)));
-                this.DFSVisit(DFSTree,colors,node);
-            }
-        }
-
-        return DFSTree;
-    }
-
-    private void DFSVisit(final Map<N,List<N>> DFSTree, final Map<N,Color> colors, final N start){
-        colors.put(start,Color.GREY);
-        LinkedList<N> thisPath; 
-
-        for (N nearNode : this.getGraph().get(start)) {
-            if(colors.get(nearNode)==Color.WHITE){
-                thisPath = new LinkedList<>(DFSTree.get(start));
-                thisPath.addLast(nearNode);
-                DFSTree.put(nearNode,thisPath);
-                DFSVisit(DFSTree, colors, nearNode);
-            }
-        }
-        colors.put(start,Color.BLACK);
-
-    }
-
-
-
-    private Map<N,Set<N>> getGraph(){
-        return this.myGraph;
-    }
-
 
 }
