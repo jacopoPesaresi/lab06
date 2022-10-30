@@ -63,8 +63,8 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
-        this.follower = new HashMap<>();
-    }
+        this.follower = new HashMap<String,Set<U>>();
+    }   
 
     /*
      * 2) Define a further constructor where the age defaults to -1
@@ -80,10 +80,10 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        Set<U> tmp =  follower.get(circle);
+        Set<U> tmp =  this.follower.get(circle);
         if (tmp == null) {
             tmp = new HashSet<>();
-            follower.put(circle, tmp);
+            this.follower.put(circle, tmp);
         } 
         return tmp.add(user);
     }
@@ -95,7 +95,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        final Collection<U> tmp =  follower.get(groupName);
+        final Collection<U> tmp =  this.follower.get(groupName);
         if(tmp!=null){
             return new ArrayList<>(tmp);
         } else {
