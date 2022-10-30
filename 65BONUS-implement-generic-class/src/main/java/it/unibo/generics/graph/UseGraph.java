@@ -36,6 +36,7 @@ public final class UseGraph {
 
     
     private static void test(final Graph<String> graph) {
+        System.out.println("### using a new graph ###");
         graph.addNode("a");
         graph.addNode("b");
         graph.addNode("c");
@@ -93,6 +94,7 @@ public final class UseGraph {
 
 
     private static void testStrategy(final Graph<String> graph) {
+        System.out.println("### try the Strategy Pattern ###");
         graph.addNode("a");
         graph.addNode("b");
         graph.addNode("c");

@@ -21,9 +21,8 @@ public class ImplConnectionTree<N> implements ConnectionTree<N>{
 
         this.coverTree = new HashMap<>();
         for (N node : start.nodeSet()) {
-            coverTree.put(node, new LinkedList<>()); //TODO-vedi se modificarmi
+            coverTree.put(node, new LinkedList<>()); 
         }
-        
     }
 
     @Override
@@ -32,8 +31,6 @@ public class ImplConnectionTree<N> implements ConnectionTree<N>{
         for (N node : coverTree.keySet()) {
             System.out.println("Path from " + root.toString() + " to " + node.toString() + " : " + coverTree.get(node));   
         }
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -51,9 +48,5 @@ public class ImplConnectionTree<N> implements ConnectionTree<N>{
     public Graph<N> getGraphThatConnect() {
         return this.byThisGraph;
     }
-
-    
-
-    
 
 }

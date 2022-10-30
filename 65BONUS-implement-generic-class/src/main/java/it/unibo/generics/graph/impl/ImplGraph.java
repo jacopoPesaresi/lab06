@@ -63,6 +63,7 @@ public class ImplGraph<N> implements Graph<N>{
      * @return 
      *      the relative BFS-Tree
      */
+    //function maintained to make the first two tests in main still work
     private Map<N,List<N>> BFS(final N start) {
         Map<N,List<N>> BFSTree = new HashMap<>();
         Map<N,Color> colors = new HashMap<>();

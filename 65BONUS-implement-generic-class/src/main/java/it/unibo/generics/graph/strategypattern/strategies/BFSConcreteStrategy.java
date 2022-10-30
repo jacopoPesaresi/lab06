@@ -15,36 +15,48 @@ import it.unibo.generics.graph.strategypattern.api.SearchStrategy;
 
 public class BFSConcreteStrategy<N> implements SearchStrategy<N>{
 
+    /**
+     * Exploration of a single component about a graph
+     * using the BFS strategy
+     * @param start
+     *      so the node that stats the search of other component's node
+     * @return 
+     *      the relative BFS-Tree
+     * @throws IllegalArgumentException
+     * if the "start" node isn't a node of the graph
+     */
     @Override
-    public ConnectionTree<N> search(Graph<N> graph, N start) {
-        ConnectionTree<N> BFSTree = new ImplConnectionTree<N>(graph,start);
-        Map<N,Color> colors = new HashMap<>();
-        Queue<N> Q = new LinkedList<>();
+    public ConnectionTree<N> search(Graph<N> graph, N start) throws IllegalArgumentException{
+        if(graph.nodeSet().contains(start)){
+            ConnectionTree<N> BFSTree = new ImplConnectionTree<N>(graph,start);
+            Map<N,Color> colors = new HashMap<>();
+            Queue<N> Q = new LinkedList<>();
 
-        for (N node : graph.nodeSet()) {
-            colors.put(node,Color.WHITE);
-        }
-
-        BFSTree.setPath(start, List.of(start));
-        colors.put(start, Color.GREY);  
-        Q.add(start);
-
-        N nodeConsidered;
-        LinkedList<N> tmp;
-        while (!Q.isEmpty()) {
-            nodeConsidered = Q.poll();
-            for (N nearNode : graph.linkedNodes(nodeConsidered)){
-                if(colors.get(nearNode) == Color.WHITE){
-                    colors.put(nearNode, Color.GREY);
-                    tmp = new LinkedList<>(BFSTree.getPath(nodeConsidered));
-                    tmp.addLast(nearNode);
-                    BFSTree.setPath(nearNode, tmp);
-                    Q.add(nearNode);
-                }
+            for (N node : graph.nodeSet()) {
+                colors.put(node,Color.WHITE);
             }
-            colors.put(nodeConsidered, Color.BLACK);
-        }
-        return BFSTree;
+
+            BFSTree.setPath(start, List.of(start));
+            colors.put(start, Color.GREY);  
+            Q.add(start);
+
+            N nodeConsidered;
+            LinkedList<N> tmp;
+            while (!Q.isEmpty()) {
+                nodeConsidered = Q.poll();
+                for (N nearNode : graph.linkedNodes(nodeConsidered)){
+                    if(colors.get(nearNode) == Color.WHITE){
+                        colors.put(nearNode, Color.GREY);
+                        tmp = new LinkedList<>(BFSTree.getPath(nodeConsidered));
+                        tmp.addLast(nearNode);
+                        BFSTree.setPath(nearNode, tmp);
+                        Q.add(nearNode);
+                    }
+                }
+                colors.put(nodeConsidered, Color.BLACK);
+            }
+            return BFSTree;
+        } else throw new IllegalArgumentException("Passed a node that the graph not contains");
     }
 
 

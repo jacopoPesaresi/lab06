@@ -28,10 +28,12 @@ public class DFSConcreteStrategy<N> implements SearchStrategy<N>{
      *      arbitary by the code
      * @return 
      *      the relative DFS-Tree
+     * @throws IllegalArgumentException
+     *      if the "start" node isn't a node of the graph
      */
 
     @Override
-    public ConnectionTree<N> search(final Graph<N> graph, final N start) {
+    public ConnectionTree<N> search(final Graph<N> graph, final N start) throws IllegalArgumentException{
         ConnectionTree<N> DFSTree = new ImplConnectionTree<N>(graph, start);
         Map<N,Color> colors = new HashMap<>();
 
