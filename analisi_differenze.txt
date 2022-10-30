@@ -1,0 +1,23 @@
+LAB 62
+
+CASA 63
+(ServiceBehindUnstableNetwork)
+lanciata NumberFormatException invece di una IllegalArgumentException
+e passato male exceptionWhenParsedAsNumber alla throw
+in accessTheNetwork: ho lanciato l'eccezione con un mio messaggio, ma dovevo usare "message" come parametro (e proteggerlo guardando se message arriva prima
+(UseArithmeticService)
+gestito il while (in retrySendOnNetworkError e in retryReceiveOnNetworkError) con una variabile di supporto invece che interromperlo col while
+stampato lo e.stackTrace invece del e.getMessage
+(NetworkException)
+non ho sfruttato il costruttore di IOException (non ho usato super(...))
+evitando anche di fare il controllo sulla stringa (per quello con la stringa)
+(ArithmeticService)
+gestito (molto) male il finally in ArithmeticService.process
+
+CASA 64
+Nel costruttore non ho sfruttato l'inferenza di tipo
+Stavo cercando di lavorare con una Map<String, U>... non Map<String, Set<U>>, ma una volta capito l'errore è stato facile finire l'implementazione di tutto il resto
+L'ultima funzione uso direttamente una lista (anche se servirsi di un set prima è effettivamente utile per evitare ripetizioni)
+omesso qualche this e aggiunto un if di troppo (ridondante quantomeno) in SocialNetworkUserImpl.getFollowedUsers
+
+CASA 65
