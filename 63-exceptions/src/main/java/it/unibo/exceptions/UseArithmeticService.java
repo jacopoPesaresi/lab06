@@ -53,7 +53,7 @@ public final class UseArithmeticService {
                 server.sendData(message);
                 gate = false;
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 gate = true;
             }
         }
@@ -72,7 +72,7 @@ public final class UseArithmeticService {
                 tmp = server.receiveResponse();
                 gate = false;
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 gate = true;
             }
         }

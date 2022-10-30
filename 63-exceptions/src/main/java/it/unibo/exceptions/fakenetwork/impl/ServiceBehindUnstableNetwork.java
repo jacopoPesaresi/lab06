@@ -65,7 +65,8 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
             /*System.out.println(message);*/
 
             commandQueue.clear();
-            throw new NumberFormatException(message + exceptionWhenParsedAsNumber);
+            //throw new NumberFormatException(message, exceptionWhenParsedAsNumber);
+            throw new IllegalArgumentException(message, exceptionWhenParsedAsNumber);
             
             /*
              * This method, in this point, should throw an IllegalStateException.
