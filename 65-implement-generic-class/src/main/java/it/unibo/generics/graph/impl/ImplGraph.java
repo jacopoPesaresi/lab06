@@ -4,7 +4,8 @@ import java.util.Set;
 import java.util.HashSet;
 
 import java.util.LinkedList;
-
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,16 +29,16 @@ public class ImplGraph<N> implements Graph<N>{
 
     @Override
     public void addNode(final N node) {
-        if(node!=null && !myGraph.containsKey(node)){
-            myGraph.put(node,new HashSet<N>());
-        }
+        //if(node!=null && !myGraph.containsKey(node)){ @corrected
+            myGraph.putIfAbsent(node,new HashSet<N>());
+        //} @corrected
     }
 
     @Override
     public void addEdge(final N source,final N target) {
-        if(source!=null && target!=null && myGraph.containsKey(source)){
+        if(source!=null && target!=null && myGraph.containsKey(source)){ //weak control
             myGraph.get(source).add(target);
-        }
+        } //next time do this check in a private function, mayby with also exceptions
     }
 
     @Override
@@ -52,7 +53,12 @@ public class ImplGraph<N> implements Graph<N>{
 
     @Override
     public List<N> getPath(final N source, final N target) {
-        return this.BFS(source).get(target);
+        if(source!=null && target!=null && myGraph.containsKey(source) && myGraph.containsKey(target)){ //weak control
+            return this.BFS(source).get(target);
+        } else { //@added
+            return Collections.emptyList(); //@added
+        } //@added
+        
     }
 
     /**
